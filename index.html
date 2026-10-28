@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bengaluru Civil Relief & Family Reunification Network</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Emergency Ticker Bar -->
+  <header class="emergency-bar">
+    <div class="urgent-tag">BENGALURU ALERT</div>
+    <div class="ticker-text">
+      MONSOON WATERLOGGING ADVISORY: BBMP EMERGENCY UNITS ACTIVE IN ZONES EAST & SOUTH — HELPLINE: 1912 / 112
+    </div>
+    <span id="networkStatus" style="font-size: 0.75rem; margin-left: 15px; border-left: 1px solid #555; padding-left: 15px; white-space: nowrap;">Status: Online (Zero Packet Loss)</span>
+    <button class="mode-toggle" id="bandwidthToggle" style="margin-left: 15px;">⚡ Low Bandwidth Mode</button>
+  </header>
+
+  <!-- Main Site Banner -->
+  <div class="site-header">
+    <div class="brand-title">BENGALURU CIVIL RELIEF REGISTER</div>
+    <div class="brand-subtitle">BBMP Central Reunification & Emergency Shelter Coordination Desk</div>
+  </div>
+
+  <div class="zigzag-divider"></div>
+
+  <div class="main-container">
+
+    <!-- Action Bar -->
+    <div class="action-strip">
+      <button class="btn btn-primary" onclick="openModal('reportModal')">+ Report Missing Person</button>
+      <button class="btn btn-outline" onclick="openModal('safeModal')">✓ I Am Safe / Check-in</button>
+      <button class="btn btn-outline" onclick="openModal('matchModal')">🔍 Match / Search Sighting</button>
+      <div class="counter-box">
+        Registered Persons: <strong id="totalCount">0</strong> | Safe Check-ins: <strong id="safeCount">0</strong>
+      </div>
+    </div>
+
+    <!-- 2 Column Section: Map & Active Relief Shelters -->
+    <div class="grid-2col">
+      
+      <!-- Left Column: Map & Active Camps -->
+      <div class="paper-card">
+        <h2 class="card-title">Bengaluru Relief Camps Today</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 15px; color: #555;">
+          Interactive shelter coordinates and immediate BBMP assistance hubs across the city.
+        </p>
+
+        <div class="map-box" id="mapBox">
+          <div class="map-label">BBMP SECTOR: BENGALURU URBAN</div>
+          <div class="map-pin pin-1" onclick="selectShelter(0)">
+            <span class="pin-marker">📍</span>
+            <span class="pin-title">Kanteerava Stadium</span>
+          </div>
+          <div class="map-pin pin-2" onclick="selectShelter(1)">
+            <span class="pin-marker">📍</span>
+            <span class="pin-title">Indiranagar Club</span>
+          </div>
+          <div class="map-pin pin-3" onclick="selectShelter(2)">
+            <span class="pin-marker">📍</span>
+            <span class="pin-title">Jayanagar Complex</span>
+          </div>
+        </div>
+
+        <div class="shelter-info-panel" id="shelterPanel">
+          <div class="shelter-name" id="shelterName">Select a Pin on the Map</div>
+          <div style="font-family: 'Courier Prime', monospace; font-size: 0.85rem; margin-bottom: 8px;" id="shelterAddr">---</div>
+          <div style="font-size: 0.85rem;" id="shelterCap">Occupancy: -- / --</div>
+          <div style="font-size: 0.85rem;" id="shelterMed">Medical Triage: --</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Dispatch & Schedule Matrix -->
+      <div class="paper-card dark-card">
+        <h2 class="card-title light-text">City Relief Operations Schedule</h2>
+        <p style="font-size: 0.85rem; color: #E5D5C5; margin-bottom: 15px;">
+          Zonal food packet dispatches, de-watering pump units, and medical camps.
+        </p>
+
+        <div class="schedule-grid">
+          <div class="schedule-day active">
+            <span class="day-name">MON</span>
+            <div class="schedule-event">
+              <span class="event-title">Food Packets</span>
+              <span class="event-time">08:00 - 10:00</span>
+            </div>
+          </div>
+          <div class="schedule-day">
+            <span class="day-name">TUE</span>
+            <div class="schedule-event">
+              <span class="event-title">Medical Camp</span>
+              <span class="event-time">11:00 - 15:00</span>
+            </div>
+          </div>
+          <div class="schedule-day">
+            <span class="day-name">WED</span>
+            <div class="schedule-event">
+              <span class="event-title">Dry Rations</span>
+              <span class="event-time">09:00 - 12:00</span>
+            </div>
+          </div>
+          <div class="schedule-day">
+            <span class="day-name">THU</span>
+            <div class="schedule-event">
+              <span class="event-title">Family Desk</span>
+              <span class="event-time">10:00 - 17:00</span>
+            </div>
+          </div>
+          <div class="schedule-day">
+            <span class="day-name">FRI</span>
+            <div class="schedule-event">
+              <span class="event-title">Rescue Boats</span>
+              <span class="event-time">14:00 - 18:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; font-family: 'Courier Prime', monospace; font-size: 0.8rem; background: #501422; padding: 10px; border: 1px dashed #8C2B3F; color: #F9F5EC;">
+          ALERT: BBMP Control Room Helpline 1533 / 112 active 24/7 for waterlogging rescue requests.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Family Reunification Ledger -->
+    <div class="paper-card" style="margin-top: 30px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+        <h2 class="card-title" style="margin-bottom: 0;">Bengaluru Missing Persons & Reunification Registry</h2>
+        
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search name, area, or description...">
+          <select id="statusFilter" class="filter-select">
+            <option value="ALL">All Statuses</option>
+            <option value="MISSING">Missing</option>
+            <option value="SAFE">Safe / Checked In</option>
+            <option value="RELOCATED">Relocated</option>
+          </select>
+        </div>
+      </div>
+
+      <table class="ledger-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Full Name</th>
+            <th>Age / Gender</th>
+            <th>Last Known Location / Bengaluru Area</th>
+            <th>Status</th>
+            <th>Reported Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerBody">
+          <!-- Dynamically populated via app.js -->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- Report Missing Modal -->
+  <div class="modal-backdrop" id="reportModal">
+    <div class="modal-box">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #6B1D2F; margin-bottom: 15px;">
+        Report Missing Individual (Bengaluru)
+      </h3>
+      <form id="reportForm">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="repName" required placeholder="e.g. Karthik Gowda">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Age & Gender</label>
+          <input type="text" class="form-input" id="repDetails" required placeholder="e.g. 27 / Male">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Known Bengaluru Location / Description</label>
+          <textarea class="form-input" id="repLoc" rows="3" required placeholder="e.g. Near Silk Board junction, wearing black shirt..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Upload Photograph</label>
+          <input type="file" class="form-input" id="repPhoto" accept="image/*">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('reportModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Safe Check-in Modal -->
+  <div class="modal-backdrop" id="safeModal">
+    <div class="modal-box">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #6B1D2F; margin-bottom: 15px;">
+        Civilian Safe Check-in (Bengaluru)
+      </h3>
+      <form id="safeForm">
+        <div class="form-group">
+          <label class="form-label">Your Full Name</label>
+          <input type="text" class="form-input" id="safeName" required placeholder="e.g. Sneha Rao">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Bengaluru Shelter / Safe Area</label>
+          <input type="text" class="form-input" id="safeLocation" required placeholder="e.g. Kanteerava Indoor Stadium Camp">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact / Message to Family</label>
+          <input type="text" class="form-input" id="safeMsg" placeholder="e.g. Safe and sheltered, phone battery low.">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('safeModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Confirm I Am Safe</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Smart Match & Found Sighting Modal -->
+  <div class="modal-backdrop" id="matchModal">
+    <div class="modal-box" style="max-width: 600px;">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #6B1D2F; margin-bottom: 15px;">
+        Find Matches / Report Found Sighting
+      </h3>
+      <p style="font-size: 0.85rem; margin-bottom: 12px; color: #555;">
+        Search for a missing person to check records, or record a sighting if you found someone in Bengaluru.
+      </p>
+      
+      <div class="form-group">
+        <label class="form-label">Search Name or Bengaluru Area</label>
+        <input type="text" class="form-input" id="matchQueryInput" placeholder="Type name or area (e.g. Indiranagar)..." oninput="runSmartMatch()">
+      </div>
+
+      <div id="matchResultsContainer" style="max-height: 200px; overflow-y: auto; border: 1px solid #6B1D2F; padding: 10px; margin-bottom: 15px; background: #FFF;">
+        <span style="font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: #666;">Type above to evaluate potential matches...</span>
+      </div>
+
+      <hr style="border: 0; border-top: 1px dashed #6B1D2F; margin: 15px 0;">
+
+      <h4 style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #6B1D2F; margin-bottom: 10px;">
+        Report Sighting of a Missing Person
+      </h4>
+      <form id="sightingForm">
+        <div class="form-group">
+          <label class="form-label">Select Missing Person to Update</label>
+          <select class="form-input" id="sightingPersonSelect" required>
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Where in Bengaluru did you spot them?</label>
+          <input type="text" class="form-input" id="sightingLocation" required placeholder="e.g. Majestic Bus Station Platform 3">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('matchModal')">Close</button>
+          <button type="submit" class="btn btn-primary">Log Sighting & Notify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <div class="zigzag-divider" style="margin-top: 40px;"></div>
+  <footer class="footer">
+    <div>BENGALURU DISASTER RELIEF CENTRAL REUNIFICATION DESK</div>
+    <div style="font-size: 0.8rem; margin-top: 5px;">
+      BBMP Disaster Management Cell • Emergency Helpline: 1533 / 112 • Police Control Room: 100
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
