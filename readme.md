@@ -1,4 +1,4 @@
-# Bengaluru Civil Relief & Family Reunification Network
+# Disaster Relief & Family Reunification Network
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
@@ -6,7 +6,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Domain: Bengaluru Civil Defense](https://img.shields.io/badge/Domain-Bengaluru_Civil_Defense-800000?style=flat-square)
 
-**An offline-first civil relief registry for emergency family reunification and shelter coordination in Bengaluru.**
+**An offline-first civil relief registry for emergency family reunification and shelter coordination (we have used bengaluru as the city for now).**
 
 A lightweight, zero-dependency web application designed to help manage missing-person reports, survivor check-ins, sighting reports, and relief camp information during urban disasters and severe monsoon flooding.
 
